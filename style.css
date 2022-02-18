@@ -7,6 +7,15 @@ body {
     line-height: 24px;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
+h1,
+p {
+    margin: 0;
+}
+
 *,
 *::after,
 *::before {
@@ -21,10 +30,18 @@ body {
     --dark-bg: rgb(40, 40, 40);
     --darker-bg: rgb(31, 31, 31);
     --header-height: 64px;
+    --sidebar-width: 72px;
+    --sidebarOpen-width: 255px;
+    --animation-duration: 300ms;
+    --animation-timing-curve: ease-in-out;
 }
 
 .text-bold {
     font-weight: 600;
+}
+
+.text-white {
+    color: white;
 }
 
 .header {
@@ -58,43 +75,57 @@ body {
 }
 
 .sidebar.open {
-    width: 255px;
+    width: var(--sidebarOpen-width);
 }
 
 .sidebar {
+    width: var(--sidebar-width);
     position: sticky;
     top: var(--header-height);
     flex-shrink: 0;
     overflow: hidden;
-    width: 72px;
+    height: calc(100vh - 1px - var(--header-height));
     border-right: 1px solid var(--divider-color);
     display: flex;
     flex-direction: column;
-    height: calc(100vh - var(--header-height));
     align-items: center;
+
+    transition: width var(--animation-duration) var(--animation-timing-curve);
 }
 
 .sidebar .top-sidebar {
     display: flex;
-    /* flex-direction: column; */
     align-items: center;
-    justify-content: center;
+    flex-direction: column;
     height: 60px;
     width: 100%;
+    transition: height var(--animation-duration) var(--animation-timing-curve);
 }
 
 .sidebar.open .top-sidebar {
-    min-height: 210px;
-    flex-direction: column;
-    /* border: 1px solid yellow; */
-    justify-content: space-around;
-    padding: 0.5rem;
+    height: 220px;
+}
+
+.sidebar .top-sidebar .hidden-text-outer {
+    visibility: hidden;
+    text-align: center;
+    width: 100%;
+    opacity: 0;
+    transition: all var(--animation-duration) var(--animation-timing-curve);
+    margin: 1rem auto;
+}
+.sidebar.open .top-sidebar .hidden-text-outer {
+    visibility: visible;
+    opacity: 1;
+    width: auto;
 }
 
 .sidebar .channel-logo {
     display: block;
+    margin-top: 1rem;
     height: 32px;
     width: 32px;
+    transition: all var(--animation-duration) var(--animation-timing-curve);
 }
 
 .sidebar.open .channel-logo {
@@ -108,29 +139,30 @@ body {
     width: 100%;
 }
 
-.sidebar .hidden-text {
-    display: none;
-}
-
-.sidebar.open .hidden-text {
-    display: block;
-}
-
 .middle-sidebar {
-    flex-grow: 1;
     width: 100%;
+    padding: 0;
     overflow-y: auto;
     overflow-x: hidden;
 }
 
 .bottom-sidebar {
+    height: 116px;
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
     width: 100%;
+}
+
+.sidebar.open .bottom-sidebar {
+    border-top: 1px solid var(--divider-color);
 }
 
 .sidebar-list {
     list-style: none;
     margin: 0;
     padding: 0;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -139,13 +171,15 @@ body {
 .sidebar-icon {
     width: 24px;
     height: 24px;
+    flex-shrink: 0;
 }
 
-.sidebar .sidebar-link {
+.sidebar-link {
     text-decoration: none;
     height: 48px;
+    width: 100%;
+    padding-left: 1.5rem;
     display: flex;
-    justify-content: center;
     align-items: center;
     color: var(--light-gray);
     fill: var(--light-gray);
@@ -159,7 +193,6 @@ body {
 }
 .sidebar-list-item {
     width: 100%;
-    /* border: 1px solid white; */
     fill: var(--lighter-gray);
 }
 
@@ -181,20 +214,35 @@ body {
     padding-left: 1rem;
 }
 
-.sidebar.open .sidebar-link svg {
-    margin-left: 0.5rem;
+.sidebar-icon {
     margin-right: 1.25rem;
+}
+.sidebar.open .sidebar-link .sidebar-icon {
+    margin-left: 0.5rem;
 }
 
 .sidebar .sidebar-link-text {
-    display: none;
-}
-
-.sidebar.open .sidebar-link-text {
-    display: block;
+    opacity: 0;
+    width: 0;
+    transition: opacity var(--animation-duration) var(--animation-timing-curve);
+    white-space: nowrap;
     margin-left: 1rem;
 }
 
+.sidebar.open .sidebar-link-text {
+    opacity: 1;
+    width: 100%;
+}
+
 .content {
-    margin: 1rem;
+    margin: 2rem;
+}
+
+.content section {
+    padding-top: calc(var(--header-height) + 2rem);
+    min-height: 100vh;
+}
+
+.content section .title {
+    margin-bottom: 1rem;
 }
