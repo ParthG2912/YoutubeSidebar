@@ -9,6 +9,7 @@ body {
 
 html {
     scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--header-height) + 2rem);
 }
 
 h1,
@@ -54,11 +55,13 @@ p {
     padding: 0.75rem 1rem;
     background: var(--dark-bg);
 }
+
 .menu-icon-btn {
     background: none;
     border: none;
     padding: 0.5rem 0.5rem 0.25rem;
 }
+
 .menu-icon {
     width: 24px;
     height: 24px;
@@ -114,6 +117,7 @@ p {
     transition: all var(--animation-duration) var(--animation-timing-curve);
     margin: 1rem auto;
 }
+
 .sidebar.open .top-sidebar .hidden-text-outer {
     visibility: visible;
     opacity: 1;
@@ -191,6 +195,7 @@ p {
     fill: var(--accent-color);
     background: var(--darker-bg);
 }
+
 .sidebar-list-item {
     width: 100%;
     fill: var(--lighter-gray);
@@ -217,6 +222,7 @@ p {
 .sidebar-icon {
     margin-right: 1.25rem;
 }
+
 .sidebar.open .sidebar-link .sidebar-icon {
     margin-left: 0.5rem;
 }
@@ -239,7 +245,7 @@ p {
 }
 
 .content section {
-    padding-top: calc(var(--header-height) + 2rem);
+    /* padding-top: calc(var(--header-height) + 2rem); */
     min-height: 100vh;
 }
 
